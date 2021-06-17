@@ -16,7 +16,7 @@ public class AccountDeadlineRepository {
         if(instance==null) {
             try {
                 Context context = new InitialContext();
-                ds = (DataSource) context.lookup("oracle.jdbc.driver.OracleDriver");
+                ds = (DataSource) context.lookup("java:comp/env/jdbc/orcl");
                 return instance = new AccountDeadlineRepository();
             } catch (NamingException e) {
                 // TODO Auto-generated catch block

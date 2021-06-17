@@ -18,7 +18,7 @@ public class FrontController extends HttpServlet{
 
     public FrontController() {
         controllerMap.put("accounts", new AccountsController());
-        controllerMap.put("accounts-deadline", new AccountDeadlineController());
+        controllerMap.put("account-deadline", new AccountDeadlineController());
     }
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

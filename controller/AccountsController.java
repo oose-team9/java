@@ -18,12 +18,12 @@ public class AccountsController implements Controller{
         ModelAndView modelAndView = new ModelAndView();
         if(url.equals("/accounts/read")) {
             ArrayList<Accounts> accounts = accountsService.read();
-            modelAndView.setViewName("accounts-list");
+            modelAndView.setViewName("accounts/accounts-list");
         }
         else if(url.equals("/accounts/create")) {
             Accounts account = new Accounts();
             accountsService.create(account);
-            modelAndView.setViewName("accounts-form");
+            modelAndView.setViewName("accounts/accounts-form");
         }
         else if(url.equals("/accounts/delete")) {
             String id = request.getParameter("id");

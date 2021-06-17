@@ -19,12 +19,12 @@ public class AccountDeadlineController implements Controller{
         ModelAndView modelAndView = new ModelAndView();
         if(url.equals("/account-deadline/read")) {
             ArrayList<AccountDeadline> deadlines = accountDeadlineService.read();
-            modelAndView.setViewName("account-deadline-list");
+            modelAndView.setViewName("account-deadline/account-deadline-list");
         }
         else if(url.equals("/account-deadline/create")) {
             AccountDeadline deadline = new AccountDeadline();
             accountDeadlineService.create(deadline);
-            modelAndView.setViewName("account-deadline-form");
+            modelAndView.setViewName("account-deadline/account-deadline-form");
         }
         else
             modelAndView.setStatus(HttpServletResponse.SC_NOT_FOUND);
