@@ -1,6 +1,6 @@
 package persistence;
 
-import domain.Accounts;
+import domain.AccountDeadline;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -8,16 +8,16 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 import java.util.ArrayList;
 
-public class AccountsRepository {
-    private static AccountsRepository instance;
+public class AccountDeadlineRepository {
+    private static AccountDeadlineRepository instance;
     private static DataSource ds;
-    private AccountsRepository() { }
-    public static AccountsRepository getInstance() {
+    private AccountDeadlineRepository() { }
+    public static AccountDeadlineRepository getInstance() {
         if(instance==null) {
             try {
                 Context context = new InitialContext();
                 ds = (DataSource) context.lookup("oracle.jdbc.driver.OracleDriver");
-                return instance = new AccountsRepository();
+                return instance = new AccountDeadlineRepository();
             } catch (NamingException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
@@ -26,13 +26,10 @@ public class AccountsRepository {
         return instance;
     }
 
-    public void create(Accounts account) {
+    public void create(AccountDeadline deadline) {
     }
 
-    public ArrayList<Accounts> read() {
+    public ArrayList<AccountDeadline> read() {
         return null;
-    }
-
-    public void delete(int i) {
     }
 }
