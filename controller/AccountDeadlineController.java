@@ -18,8 +18,9 @@ public class AccountDeadlineController implements Controller{
     public ModelAndView process(HttpServletRequest request, HttpServletResponse response, String url) throws ServletException, IOException {
         ModelAndView modelAndView = new ModelAndView();
         if(url.equals("/account-deadline/read")) {
-            ArrayList<AccountDeadline> deadlines = accountDeadlineService.read();
+            AccountDeadline deadline = accountDeadlineService.read();
             modelAndView.setViewName("account-deadline/account-deadline-list");
+            modelAndView.getModel().put("deadline", deadline);
         }
         else if(url.equals("/account-deadline/create")) {
             AccountDeadline deadline = new AccountDeadline();

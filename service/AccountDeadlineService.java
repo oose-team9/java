@@ -12,7 +12,7 @@ public class AccountDeadlineService {
         accountDeadlineRepository.create(deadline);
     }
 
-    public ArrayList<AccountDeadline> read() {
+    public AccountDeadline read() {
         return accountDeadlineRepository.read();
     }
 }

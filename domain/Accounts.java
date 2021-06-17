@@ -2,14 +2,33 @@ package domain;
 
 public class Accounts {
     int id;
+    String departmentName;
     int empNo;
-    String backName;
+    String name;
+    String bankName;
     String accNum;
 
-    public Accounts(int id, int empNo, String backName, String accNum) {
+    public Accounts(int id, String departmentName, int empNo, String name, String bankName, String accNum) {
+        this.id = id;
+        this.departmentName = departmentName;
+        this.empNo = empNo;
+        this.name = name;
+        this.bankName = bankName;
+        this.accNum = accNum;
+    }
+
+    public Accounts(String departmentName, int empNo, String name, String bankName, String accNum) {
+        this.departmentName = departmentName;
+        this.empNo = empNo;
+        this.name = name;
+        this.bankName = bankName;
+        this.accNum = accNum;
+    }
+
+    public Accounts(int id, int empNo, String bankName, String accNum) {
         this.id = id;
         this.empNo = empNo;
-        this.backName = backName;
+        this.bankName = bankName;
         this.accNum = accNum;
     }
 
@@ -25,6 +44,14 @@ public class Accounts {
         this.id = id;
     }
 
+    public String getDepartmentName() {
+        return departmentName;
+    }
+
+    public void setDepartmentName(String departmentName) {
+        this.departmentName = departmentName;
+    }
+
     public int getEmpNo() {
         return empNo;
     }
@@ -33,12 +60,20 @@ public class Accounts {
         this.empNo = empNo;
     }
 
-    public String getBackName() {
-        return backName;
+    public String getName() {
+        return name;
     }
 
-    public void setBackName(String backName) {
-        this.backName = backName;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getBankName() {
+        return bankName;
+    }
+
+    public void setBankName(String bankName) {
+        this.bankName = bankName;
     }
 
     public String getAccNum() {

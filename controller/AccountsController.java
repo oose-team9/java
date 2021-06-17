@@ -19,6 +19,7 @@ public class AccountsController implements Controller{
         if(url.equals("/accounts/read")) {
             ArrayList<Accounts> accounts = accountsService.read();
             modelAndView.setViewName("accounts/accounts-list");
+            modelAndView.getModel().put("accounts", accounts);
         }
         else if(url.equals("/accounts/create")) {
             Accounts account = new Accounts();
