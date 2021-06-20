@@ -1,7 +1,7 @@
 package controller;
 
-import com.domain.Extrawork;
-import com.service.ExtraworkService;
+import domain.Extrawork;
+import service.ExtraworkService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
+@WebServlet(name = "ExtraworkController", urlPatterns = "/extrawork/*")
 public class ExtraworkController implements Controller {
     private final ExtraworkService extraworkService = new ExtraworkService();
 
