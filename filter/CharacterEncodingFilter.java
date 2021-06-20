@@ -1,4 +1,4 @@
-package filter;
+package com;
 
 import java.io.IOException;
 
@@ -8,14 +8,13 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
-import javax.servlet.annotation.WebInitParam;
 
-@WebFilter("/*")
+@WebFilter("/*")	
 public class CharacterEncodingFilter implements Filter {
-
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        request.setCharacterEncoding("utf-8");
-        response.setContentType("text/html;charset=utf-8");
-        chain.doFilter(request, response);
-    }
+   
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {		
+		request.setCharacterEncoding("utf-8");
+		response.setContentType("text/html;charset=utf-8");
+		chain.doFilter(request, response);
+	}
 }
