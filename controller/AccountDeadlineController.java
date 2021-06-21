@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.Date;
 import java.util.ArrayList;
 
 @WebServlet(name = "AccountDeadlineController", urlPatterns = "/account-deadline/*")
@@ -23,9 +24,18 @@ public class AccountDeadlineController implements Controller{
             modelAndView.getModel().put("deadline", deadline);
         }
         else if(url.equals("/account-deadline/create")) {
-            AccountDeadline deadline = new AccountDeadline();
-            accountDeadlineService.create(deadline);
-            modelAndView.setViewName("account-deadline/account-deadline-form");
+            if(request.getMethod().equals("GET"))
+                modelAndView.setViewName("account-deadline/account-deadline-form");
+            else {
+                AccountDeadline deadline = new AccountDeadline();
+                deadline.setStartDay(java.sql.Date.valueOf(request.getParameter("start")));
+                deadline.setEndDay(java.sql.Date.valueOf(request.getParameter("end")));
+                accountDeadlineService.create(deadline);
+                System.out.println(deadline.toString());
+                AccountDeadline read = accountDeadlineService.read();
+                modelAndView.setViewName("account-deadline/account-deadline-list");
+                modelAndView.getModel().put("deadline", read);
+            }
         }
         else
             modelAndView.setStatus(HttpServletResponse.SC_NOT_FOUND);

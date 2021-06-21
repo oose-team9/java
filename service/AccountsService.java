@@ -16,7 +16,7 @@ public class AccountsService {
         return accountsRepository.read();
     }
 
-    public void delete(String id) {
-        accountsRepository.delete(Integer.parseInt(id));
+    public int delete(String[] ids) {
+        return accountsRepository.delete(ids);
     }
 }

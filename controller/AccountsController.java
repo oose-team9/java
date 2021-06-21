@@ -1,5 +1,6 @@
 package controller;
 
+import domain.AccountDeadline;
 import domain.Accounts;
 import service.AccountsService;
 
@@ -22,13 +23,30 @@ public class AccountsController implements Controller{
             modelAndView.getModel().put("accounts", accounts);
         }
         else if(url.equals("/accounts/create")) {
-            Accounts account = new Accounts();
-            accountsService.create(account);
-            modelAndView.setViewName("accounts/accounts-form");
+            if(request.getMethod().equals("GET"))
+                modelAndView.setViewName("accounts/accounts-form");
+            else {
+                Accounts accounts = new Accounts();
+                accounts.setEmpNo(Integer.parseInt(request.getParameter("emp")));
+                accounts.setBankName(request.getParameter("bank"));
+                accounts.setAccNum(request.getParameter("acc"));
+                accountsService.create(accounts);
+                System.out.println(accounts.toString());
+                ArrayList<Accounts> read = accountsService.read();
+                modelAndView.setViewName("accounts/accounts-list");
+                modelAndView.getModel().put("accounts", read);
+            }
         }
         else if(url.equals("/accounts/delete")) {
-            String id = request.getParameter("id");
-            accountsService.delete(id);
+            String[] ids = request.getParameterValues("chk");
+            for(int i = 0; i < ids.length; i++)
+                System.out.println(ids[i]);
+            int delcnt = accountsService.delete(ids);
+            System.out.println(delcnt);
+            ArrayList<Accounts> read = accountsService.read();
+            modelAndView.setViewName("accounts/accounts-list");
+            modelAndView.getModel().put("accounts", read);
+
         }
         else
             modelAndView.setStatus(HttpServletResponse.SC_NOT_FOUND);

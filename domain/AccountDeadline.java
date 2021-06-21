@@ -6,11 +6,9 @@ public class AccountDeadline {
     int id;
     Date startDay;
     Date endDay;
+    boolean isNone;
 
     public AccountDeadline() {
-        this.id = id;
-        this.startDay = startDay;
-        this.endDay = endDay;
     }
 
     public int getId() {
@@ -35,5 +33,22 @@ public class AccountDeadline {
 
     public void setEndDay(Date endDay) {
         this.endDay = endDay;
+    }
+
+    public boolean isNone() {
+        return isNone;
+    }
+
+    public void setNone(boolean none) {
+        isNone = none;
+    }
+
+    @Override
+    public String toString() {
+        return "AccountDeadline{" +
+                "id=" + id +
+                ", startDay=" + startDay +
+                ", endDay=" + endDay +
+                '}';
     }
 }

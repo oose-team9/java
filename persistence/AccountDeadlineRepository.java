@@ -7,10 +7,7 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 
 public class AccountDeadlineRepository {
@@ -32,6 +29,32 @@ public class AccountDeadlineRepository {
     }
 
     public void create(AccountDeadline deadline) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+
+        String sql = "INSERT INTO ACCOUNT_DEADLINE(START_DAY, END_DAY) values(?,?)";
+        try {
+            conn = ds.getConnection();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setDate(1, deadline.getStartDay());
+            pstmt.setDate(2, deadline.getEndDay());
+            int n = pstmt.executeUpdate();
+            System.out.println("EXECUTE: " + deadline.toString());
+        }catch(SQLException e) {
+            e.printStackTrace();
+        }finally {
+            try {
+                pstmt.close();
+                conn.close();
+            } catch (SQLException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
     }
 
     public AccountDeadline read() {

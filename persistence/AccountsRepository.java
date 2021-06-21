@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class AccountsRepository {
     private static AccountsRepository instance;
     private static DataSource ds;
-    private AccountsRepository() { }
+    public AccountsRepository() { }
     public static AccountsRepository getInstance() {
         if(instance==null) {
             try {
@@ -28,6 +28,33 @@ public class AccountsRepository {
     }
 
     public void create(Accounts account) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+
+        String sql = "INSERT INTO ACCOUNTS(EMP_NO, BANK_NAME, ACC_NUM) values(?,?,?)";
+        try {
+            conn = ds.getConnection();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, account.getEmpNo());
+            pstmt.setString(2, account.getBankName());
+            pstmt.setString(3, account.getAccNum());
+            int n = pstmt.executeUpdate();
+            System.out.println("EXECUTE: " + account.toString());
+        }catch(SQLException e) {
+            e.printStackTrace();
+        }finally {
+            try {
+                pstmt.close();
+                conn.close();
+            } catch (SQLException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
     }
 
     public ArrayList<Accounts> read() {
@@ -36,7 +63,7 @@ public class AccountsRepository {
         ResultSet rs = null;
         ArrayList<Accounts> accs = new ArrayList<Accounts>();
 
-        String sql = "SELECT e.DEPARTMENT_NAME, e.EMP_NO, e.NAME, a.BANK_NAME, a.ACC_NUM " +
+        String sql = "SELECT e.DEPARTMENT_NAME, e.EMP_NO, e.NAME, a.BANK_NAME, a.ACC_NUM, a.ID " +
                 "FROM accounts a JOIN employees e on a.emp_no = e.emp_no";
 
         try {
@@ -54,7 +81,8 @@ public class AccountsRepository {
                 String name = rs.getString(3);
                 String bname = rs.getString(4);
                 String accNum = rs.getString(5);
-                Accounts post = new Accounts(dname, empno, name, bname, accNum);
+                int aid = rs.getInt(6);
+                Accounts post = new Accounts(dname, empno, name, bname, accNum, aid);
                 accs.add(post);
             }
         } catch (SQLException e) {
@@ -73,6 +101,46 @@ public class AccountsRepository {
         return accs;
     }
 
-    public void delete(int i) {
+    public int delete(String[] ids) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        int result = 0;
+        int[] cnt = null;
+
+        String sql = "DELETE FROM ACCOUNTS WHERE ID = ?";
+        try {
+            conn = ds.getConnection();
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        try {
+            pstmt = conn.prepareStatement(sql);
+            for (int i = 0; i < ids.length; i++) {
+                pstmt.setString(1, ids[i]);
+                pstmt.addBatch();
+            }
+            cnt = pstmt.executeBatch();
+
+            for (int i = 0; i < cnt.length; i++) {
+                if(cnt[i] == -2)
+                    result++;
+            }
+
+            if(ids.length == result)
+                conn.commit();
+            else
+                conn.rollback();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }  finally {
+            try {
+                pstmt.close();
+                conn.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return result;
     }
 }

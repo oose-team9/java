@@ -17,12 +17,13 @@ public class Accounts {
         this.accNum = accNum;
     }
 
-    public Accounts(String departmentName, int empNo, String name, String bankName, String accNum) {
+    public Accounts(String departmentName, int empNo, String name, String bankName, String accNum, int id) {
         this.departmentName = departmentName;
         this.empNo = empNo;
         this.name = name;
         this.bankName = bankName;
         this.accNum = accNum;
+        this.id = id;
     }
 
     public Accounts(int id, int empNo, String bankName, String accNum) {
