@@ -34,7 +34,7 @@ public class AccessRightRepository {
 		}
 		return instance;
 	}
-	public void save(AccessRight accessRight){
+	public void save(AccessRight accessRight) throws Exception{
 		Connection conn = null;
 		PreparedStatement pstmt = null; 
 		
@@ -51,7 +51,7 @@ public class AccessRightRepository {
 			
 			int n = pstmt.executeUpdate();
 		}catch(SQLException e) {
-			e.printStackTrace();
+			throw new Exception(e);
 		}finally {
 			try {
 				pstmt.close();
