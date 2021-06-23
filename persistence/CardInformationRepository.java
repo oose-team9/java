@@ -64,11 +64,11 @@ public class CardInformationRepository {
 			}			
 		}
 	}
-	public void delete(int id) {
+	public void delete(int cardNumber) {
 		Connection conn = null;
 		PreparedStatement pstmt = null; 
 		
-		String sql = "DELETE FROM cardinformation WHERE id=? ";
+		String sql = "DELETE FROM cardinformation WHERE cardNumber=? ";
 		try {
 			conn = ds.getConnection();
 		} catch (SQLException e) {
@@ -76,7 +76,7 @@ public class CardInformationRepository {
 		}
 		try {
 			pstmt = conn.prepareStatement(sql);			
-			pstmt.setInt(1, id);
+			pstmt.setInt(1, cardNumber);
 			
 			int n = pstmt.executeUpdate();
 		}catch(SQLException e) {
@@ -105,13 +105,12 @@ public class CardInformationRepository {
 			st = conn.createStatement();
 			rs = st.executeQuery(sql);
 			while (rs.next()) {
-				int id = rs.getInt("id");
 				int employeeNo = rs.getInt("employeeNo");
 				int cardNumber = rs.getInt("cardNumber");
 				String bank = rs.getString("bank");
 				int accountNumber = rs.getInt("accountNumber");
 				String password = rs.getString("password");
-				CardInformation posts = new CardInformation(id, employeeNo, cardNumber, bank, accountNumber, password);
+				CardInformation posts = new CardInformation(employeeNo, cardNumber, bank, accountNumber, password);
 				informations.add(posts);
 			}
 		} catch (SQLException e) {
