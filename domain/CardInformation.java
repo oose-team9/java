@@ -1,7 +1,6 @@
 package domain;
 
 public class CardInformation {
-	private int id;
 	private int employeeNo;
 	private int cardNumber;
 	private String bank;
@@ -9,8 +8,7 @@ public class CardInformation {
 	private String password;
 	
 	public CardInformation() {}
-	public CardInformation(int id, int employeeNo, int cardNumber, String bank, int accountNumber, String password) {
-		this.id = id;
+	public CardInformation(int employeeNo, int cardNumber, String bank, int accountNumber, String password) {
 		this.employeeNo = employeeNo;
 		this.cardNumber = cardNumber;
 		this.bank = bank;
@@ -18,8 +16,6 @@ public class CardInformation {
 		this.password = password;
 	}
 	
-	public int getId() { return id; }
-	public void setId(int id) { this.id = id; }
 	public int getEmployeeNo() { return employeeNo; }
 	public void setEmployeeNo(int employeeNo) { this.employeeNo = employeeNo; }
 	public int getCardNumber() { return cardNumber; }
