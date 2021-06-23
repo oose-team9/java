@@ -14,10 +14,6 @@ public class CardInformationService {
 		cardInformationRepository.save(cardInformation);
 	}
 	public ArrayList<CardInformation> findBoards() {
-		System.out.println("findBoardsΩ√¿€");
-		System.out.println(cardInformationRepository);
-		ArrayList<CardInformation> arr = null;
-		arr = cardInformationRepository.findAll();
-        return cardInformationRepository.findAll();
+        	return cardInformationRepository.findAll();
     }
 }
