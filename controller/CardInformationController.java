@@ -52,14 +52,14 @@ public class CardInformationController implements Controller{
 	            } catch (Exception e) {
 	               PrintWriter out = response.getWriter();
 	               out.println(
-	                     "<script>alert('ÀÔ·Â °ªÀÌ ¿Ã¹Ù¸£Áö ¾Ê½À´Ï´Ù.'); location.href='/Accountancy/front/cardInformation/write';</script>");
+	                     "<script>alert('ì…ë ¥ ê°’ì´ ì˜¬ë°”ë¥´ì§€ ì•ŠìŠµë‹ˆë‹¤.'); location.href='/Accountancy/front/cardInformation/write';</script>");
 	               out.close();
 	               e.printStackTrace();
 	            }
 			}
 		}
 		else if (url.equals("/cardInformation/delete")) {
-			cardInformationService.delete(Integer.parseInt(request.getParameter("id")));
+			cardInformationService.delete(Integer.parseInt(request.getParameter("cardNumber")));
 			ArrayList<CardInformation> informations = cardInformationService.findBoards();
 			modelAndView.setViewName("cardInformation/cardInformation-list");
 			modelAndView.getModel().put("informations", informations);
